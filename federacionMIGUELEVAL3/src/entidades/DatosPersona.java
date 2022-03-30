@@ -1,13 +1,21 @@
 package entidades;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Comparator;
 import java.util.Scanner;
 
+import utils.Datos;
 import utils.Utilidades;
 import validaciones.Validaciones;
 
-public class DatosPersona {
+public class DatosPersona implements Comparator<DatosPersona> {
+	
 	private long id;
 	private String nombre;
 	private String telefono;
@@ -133,5 +141,69 @@ public class DatosPersona {
 		ret = new DatosPersona(id, nombre, tfn, fecha, doc);
 		return ret;
 	}
+	
+	//EXAMEN 1 EVAL 3 -> EJ.1
+	/**
+	 * Función que devuelve una cadena de caracteres con la siguiente estructura
+	 * <id>|<nombre>|<telefono>|<fechaNac(dd/MM/YYYY)>|<nifnie>
+	 * Cada campo se separa mediante el caracter '|'
+	 * 
+	 * @return
+	 */
+	
+	public String datosPersonaData() {
+		return "" + this.getId() + "|" + this.getNombre() + "|" + this.telefono + "|"
+		+ this.getFechaNac().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) +
+		"|" + this.getNifnie().mostrar();
+	}
+	
+	public void exportarDatosPersonaOrdenadosTXT() {
+		System.out.println("Guardando en atletas_alfabetico.txt");
 
+		String path = "atletas_alfabetico.txt";
+		File fichero = new File(path);
+		FileWriter escritor = null;
+		PrintWriter buffer = null;
+		
+		try {
+			try {
+				escritor = new FileWriter(fichero, false);
+				buffer = new PrintWriter(escritor);
+				for (DatosPersona p : Datos.PERSONAS) {
+					buffer.println(p.datosPersonaData());
+				}
+				
+			} finally {
+				if (buffer != null) {
+					buffer.close();
+				}
+				if (escritor != null) {
+					escritor.close();
+				}
+			}
+
+		} catch (FileNotFoundException ex) {
+			System.out.println("Se ha producido una FileNotFoundException" + ex.getMessage());
+		} catch (IOException ex) {
+			System.out.println("Se ha producido una IOException" + ex.getMessage());
+		} catch (Exception ex) {
+			System.out.println("Se ha producido una Exception" + ex.getMessage());
+		}
+	}
+	
+	public int compareTo(DatosPersona o) {
+		// TODO Auto-generated method stub
+		if (this.fechaNac.compareTo(o.fechaNac) == 0) {
+				return this.getNifnie().compareTo(o.getNifnie());
+	} else
+		return this.fechaNac.compareTo(o.fechaNac);
+	}
+
+	@Override
+	public int compare(DatosPersona o1, DatosPersona o2) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	
 }
