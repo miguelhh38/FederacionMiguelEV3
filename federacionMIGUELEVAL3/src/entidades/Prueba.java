@@ -19,12 +19,15 @@ public class Prueba {
 	private Resultado resultado = null;
 	private Participante[] participantes;
 
-	public Prueba(long id, String nombre, LocalDate fecha, Lugar lugar, boolean ind) {
+	private Patrocinador[] patrocinador;
+
+	public Prueba(long id, String nombre, LocalDate fecha, Lugar lugar, boolean ind, Patrocinador[] patrocinador) {
 		this.id = id;
 		this.nombre = nombre;
 		this.fecha = fecha;
 		this.lugar = lugar;
 		this.individual = ind;
+		this.patrocinador = patrocinador;
 	}
 
 	public Prueba(long id, String nombre, LocalDate fecha, Lugar lugar, boolean ind, Participante[] participantes) {
@@ -124,6 +127,14 @@ public class Prueba {
 		this.lugar = lugar;
 	}
 
+	public Patrocinador[] getPatrocinador() {
+		return patrocinador;
+	}
+
+	public void setPatrocinador(Patrocinador[] patrocinador) {
+		this.patrocinador = patrocinador;
+	}
+
 	/**
 	 * Función que establece el equipo arbitral de la prueba (3 colegiados)
 	 * 
@@ -202,9 +213,9 @@ public class Prueba {
 		}
 	}
 
-	///Examen 6 Ejercicio 4
+	/// Examen 6 Ejercicio 4
 	/***
-	 * Función que devuelve una cadena de caracteres con la siguiente estructura: 
+	 * Función que devuelve una cadena de caracteres con la siguiente estructura:
 	 * <idPrueba>”. ”<nombre>” (”<fecha(dd/mm/YYYY)>” en <lugarPrueba>) de tipo “
 	 * <individual/colectiva>“ Si la prueba dispone de equipo arbitral, se mostrarán
 	 * los nombres del equipo arbitral. Además, si está cerrada, se mostrará el
@@ -218,16 +229,20 @@ public class Prueba {
 	@Override
 	public String toString() {
 		String ret = "";
-		ret += "" + id + "." + nombre + " (" + fecha.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) + " en " + lugar.getNombre() + ") de tipo " + (this.isIndividual()?"individual":"colectiva")+"\n";
-		if(this.hayEquipoArbitral()) {
+		ret += "" + id + "." + nombre + " (" + fecha.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) + " en "
+				+ lugar.getNombre() + ") de tipo " + (this.isIndividual() ? "individual" : "colectiva") + "\n";
+		if (this.hayEquipoArbitral()) {
 			ret += this.nombresEquipoArbitral();
 		}
-		if(this.cerrada()) {
+		if (this.cerrada()) {
 			Resultado res = this.getResultado();
 			Participante[] podio = res.getPodio();
-			ret += "Primer puesto:"+ podio[0].getId()+", con el dorsal" + podio[0].getDorsal()+" por la calle "+ podio[0].getCalle()+" Oro#"+ res.getPrimero().getId()+"\n";
-			ret += "Segundo puesto:"+ podio[1].getId()+", con el dorsal" + podio[1].getDorsal()+" por la calle "+ podio[1].getCalle()+" Oro#"+ res.getSegundo().getId()+"\n";
-			ret += "Tercer puesto:"+ podio[2].getId()+", con el dorsal" + podio[2].getDorsal()+" por la calle "+ podio[2].getCalle()+" Oro#"+ res.getTercero().getId()+"\n";
+			ret += "Primer puesto:" + podio[0].getId() + ", con el dorsal" + podio[0].getDorsal() + " por la calle "
+					+ podio[0].getCalle() + " Oro#" + res.getPrimero().getId() + "\n";
+			ret += "Segundo puesto:" + podio[1].getId() + ", con el dorsal" + podio[1].getDorsal() + " por la calle "
+					+ podio[1].getCalle() + " Oro#" + res.getSegundo().getId() + "\n";
+			ret += "Tercer puesto:" + podio[2].getId() + ", con el dorsal" + podio[2].getDorsal() + " por la calle "
+					+ podio[2].getCalle() + " Oro#" + res.getTercero().getId() + "\n";
 		}
 		return ret;
 	}
@@ -281,7 +296,27 @@ public class Prueba {
 		} while (!valido);
 		lugar = Lugar.values()[idLugar];
 
-		ret = new Prueba(id, nombre, fecha, lugar, ind);
+		// preguntar si se quiere crear un nuevo patrocinador y si no mostrar los datos
+		// de los patrocinadores de la base de datos
+		System.out.println("Ahora debe de ingresar los datos de los patrocinadores: ");
+		System.out.println("¿Cuantos patrocinadores va a ingresar?");
+		// habria que implementar el metodo leer boolean para concretar, en caso de que
+		// sea crear uno nuevo se irian ingresando los datos creando un metodo a
+		// continuacion nuevoPATROCINADOR
+
+		valido = false;
+		do {
+			System.out.println("Introduzca el nombre del patrocinador:");
+			in = new Scanner(System.in);
+			nombre = in.nextLine();
+			valido = Validaciones.validarNombre(nombre);
+			if (!valido)
+				System.out.println("ERROR: Valor introducido para el nombre el patrocinador inválido.");
+			else
+				valido = true;
+		} while (!valido);
+
+		//ret = new Prueba(id, nombre, fecha, lugar, ind);
 		return ret;
 	}
 
