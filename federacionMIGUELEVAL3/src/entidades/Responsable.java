@@ -79,6 +79,12 @@ public class Responsable {
 	public DatosPersona getPersona() {
 		return this.persona;
 	}
+	
+	
+
+	public void setPersona(DatosPersona persona) {
+		this.persona = persona;
+	}
 
 	@Override
 	public String toString() {

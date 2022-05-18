@@ -21,6 +21,9 @@ public class Prueba {
 
 	private Patrocinador[] patrocinador;
 
+	public Prueba() {
+		
+	}
 	public Prueba(long id, String nombre, LocalDate fecha, Lugar lugar, boolean ind, Patrocinador[] patrocinador) {
 		this.id = id;
 		this.nombre = nombre;
@@ -131,9 +134,7 @@ public class Prueba {
 		return patrocinador;
 	}
 
-	public void setPatrocinador(Patrocinador[] patrocinador) {
-		this.patrocinador = patrocinador;
-	}
+
 
 	/**
 	 * Función que establece el equipo arbitral de la prueba (3 colegiados)

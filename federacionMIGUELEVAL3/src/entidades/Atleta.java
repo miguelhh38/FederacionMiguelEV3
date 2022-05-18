@@ -12,6 +12,10 @@ public class Atleta extends Participante {
 	private float peso;
 
 	private DatosPersona persona;
+	
+	public Atleta() {
+		
+	}
 
 	public Atleta(long id, int dorsal, char calle, long idAtleta, float altura, float peso) {
 		super();
@@ -74,6 +78,20 @@ public class Atleta extends Participante {
 	public DatosPersona getPersona() {
 		return this.persona;
 	}
+	
+	
+
+	public long getIdAtleta() {
+		return idAtleta;
+	}
+
+	public void setIdAtleta(long idAtleta) {
+		this.idAtleta = idAtleta;
+	}
+
+	public void setPersona(DatosPersona persona) {
+		this.persona = persona;
+	}
 
 	// Examen 5 Ejercicio 5
 	/***
@@ -134,8 +152,10 @@ public class Atleta extends Participante {
 	 */
 	@Override
 	public String toString() {
-		return "" + persona.getNombre() + " (" + persona.getNifnie().mostrar() + ") del año "
+		return "" +persona.getId() +". "+persona.getNombre() + " (" + persona.getNifnie().mostrar() + ") del año "
 				+ persona.getFechaNac().getYear() + "\t" + peso + "Kgs. " + altura + "m.";
 	}
+
+	
 
 }

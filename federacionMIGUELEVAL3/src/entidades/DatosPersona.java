@@ -23,6 +23,9 @@ public class DatosPersona implements Comparator<DatosPersona> {
 
 	private Documentacion nifnie; //Examen 2 Ejercicio 3.2
 
+	public DatosPersona() {
+		
+	}
 	public DatosPersona(long id, String nombre, String telefono, LocalDate fechaNac) {
 		super();
 		this.id = id;
@@ -203,6 +206,13 @@ public class DatosPersona implements Comparator<DatosPersona> {
 	public int compare(DatosPersona o1, DatosPersona o2) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+	public String data() {
+		String ret = "";
+		ret += "" + this.getId() + "|" + this.getNombre() + "|" + this.getTelefono() + "|"
+				+ this.getFechaNac().format(DateTimeFormatter.ofPattern("dd/MM/YYYY")) + "|"
+				+ this.getNifnie().mostrar();
+		return ret;
 	}
 
 	

@@ -16,6 +16,9 @@ public class Resultado {
 	// podio[1] -> segundo puesto
 	// podio[2] -> tercer puesto
 
+	public Resultado() {
+		
+	}
 	public Resultado(long id, Oro oro, Plata plata, Bronce bronce) {
 		super();
 		this.id = id;

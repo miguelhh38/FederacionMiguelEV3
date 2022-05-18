@@ -82,6 +82,16 @@ public class Patrocinador {
 	public String patrocinadorData() {
 		return "" + this.id + "|" + this.responsable.getId() + "|" + this.nombre + "|" + this.dotacion + "|" + this.web;
 	}
+
+	public static Patrocinador nuevoPatrocinador() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
+	public String mostrarBasico() {
+		String ret = "";
+		ret += this.id + ". " + this.nombre + (!this.web.equals("") ? " " + web : " ");
+		return ret;
+	}
 
 }

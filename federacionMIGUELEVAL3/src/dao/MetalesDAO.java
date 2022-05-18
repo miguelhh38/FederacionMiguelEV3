@@ -20,16 +20,12 @@ public class MetalesDAO implements operacionesCRUD<Metal> {
 	@Override
 	public boolean insertarConID(Metal m) {
 		boolean ret = false; 
-		
-		
 		String consultaInsert = "insert into metales(idMetal, idTipoMetal, pureza, es_oro, es_plata, es_bronce) values (?,?,?,?,?,?)";
-	
-		
 		try {
 			if (this.conex == null || this.conex.isClosed())
 				this.conex = ConexBD.establecerConexion();
 			PreparedStatement pstmt = conex.prepareStatement(consultaInsert);
-			pstmt.setLsetLong(1, Long.valueOf(m.idMetal));
+			pstmt.setLong(1, Long.valueOf(m.idMetal));
 			pstmt.setString(2, a.getPersona().getNombre());
 			pstmt.setString(3, a.getPersona().getTelefono());
 			java.sql.Date fechaSQL = java.sql.Date.valueOf(a.getPersona().getFechaNac());
@@ -58,8 +54,6 @@ public class MetalesDAO implements operacionesCRUD<Metal> {
 		}
 
 		return ret;
-	}
-		return false;
 	}
 
 	@Override
